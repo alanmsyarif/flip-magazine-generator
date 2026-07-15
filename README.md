@@ -10,23 +10,23 @@ Build a fully procedural magazine in one click — or import a real PDF and watc
 
 ## Features
 
-- **One-click procedural magazine** — page count, size, paper thickness, and mesh resolution all live on the modifier
-- **PDF import** — rasterizes every page of a PDF and maps them onto the correct sheets, front and back, with mirrored-U backfaces so text always reads correctly mid-flip
-- **Physics-flavored flip motion** — analytic per-vertex deformation that behaves like paper without a physics sim:
-  - *Follow-through* — the free edge lags while the page accelerates and leads while it decelerates
-  - *Gravity droop* — pages sag under their own weight, strongest at 45°, vanishing when vertical or flat
-  - *Flutter* — per-page seeded 4D noise, so no two pages wobble identically
-  - *Root stiffness* — the spine edge stays rigid; bend builds toward the free edge with a tunable falloff
-  - *Cover stiffness* — front and back covers bend less than inner pages
-- **Collision-safe by construction** — per-vertex angles are clamped to the valid flip range and stack heights hand off past vertical, so pages never slice through each other (verified numerically across parameter extremes)
-- **Realistic spine behavior** — the unflipped block keeps a square, flat spine edge like a real closed magazine; landed pages curl from the binding line into the natural spine tent of an open book
-- **Staggered riffle cascade** — flip start, per-page duration, and stagger are independent, from a slow page-by-page browse to a fast thumb-riffle
-- **Timeline-independent** — pure function of the frame number: scrub, reverse, or render any frame in isolation
+- **One-click procedural magazine** page count, size, paper thickness, and mesh resolution all live on the modifier
+- **PDF import** rasterizes every page of a PDF and maps them onto the correct sheets, front and back, with mirrored-U backfaces so text always reads correctly mid-flip
+- **Physics-flavored flip motion**  analytic per-vertex deformation that behaves like paper without a physics sim:
+  - *Follow-through* the free edge lags while the page accelerates and leads while it decelerates
+  - *Gravity droop* pages sag under their own weight, strongest at 45°, vanishing when vertical or flat
+  - *Flutter* per-page seeded 4D noise, so no two pages wobble identically
+  - *Root stiffness* the spine edge stays rigid; bend builds toward the free edge with a tunable falloff
+  - *Cover stiffness* front and back covers bend less than inner pages
+- **Collision-safe by construction** per-vertex angles are clamped to the valid flip range and stack heights hand off past vertical, so pages never slice through each other (verified numerically across parameter extremes)
+- **Realistic spine behavior** the unflipped block keeps a square, flat spine edge like a real closed magazine; landed pages curl from the binding line into the natural spine tent of an open book
+- **Staggered riffle cascade** flip start, per-page duration, and stagger are independent, from a slow page-by-page browse to a fast thumb-riffle
+- **Timeline-independent** pure function of the frame number: scrub, reverse, or render any frame in isolation
 
 ## Requirements
 
-- Blender **4.2+** (developed and tested on 5.x — socket-name fallbacks handle API renames across versions)
-- PDF import: [`pypdfium2`](https://github.com/pypdfium2-team/pypdfium2) — installable with one click from the addon panel (permissive license, no manual pip needed)
+- Blender **4.2+** (developed and tested on 5.x socket-name fallbacks handle API renames across versions)
+- PDF import: [`pypdfium2`](https://github.com/pypdfium2-team/pypdfium2) installable with one click from the addon panel (permissive license, no manual pip needed)
 
 ## Installation
 
@@ -44,7 +44,7 @@ Build a fully procedural magazine in one click — or import a real PDF and watc
 
 ### From a PDF
 
-1. If prompted, click **Install PDF Support (pypdfium2)** once
+1. Click **Install PDF Support (pypdfium2)** once
 2. `Import PDF as Magazine`, pick your file, choose a texture size
 3. Press **Play**
 
@@ -87,17 +87,17 @@ There is no cloth sim. Each page's flip angle follows a staggered smoothstep fro
 alpha(x) = theta + stiffness(x) · [ follow_through + droop + flutter ] · sin(theta)
 ```
 
-- `follow_through ∝ -(1 - 2p)` — proportional to angular acceleration, so the tip lags on the way up and whips past on the way down
-- `droop ∝ -cos(theta)` — gravity torque, maximal at 45°/135°
-- `flutter` — 4D noise seeded per page
+- `follow_through ∝ -(1 - 2p)` proportional to angular acceleration, so the tip lags on the way up and whips past on the way down
+- `droop ∝ -cos(theta)` gravity torque, maximal at 45°/135°
+- `flutter` 4D noise seeded per page
 - everything is masked by `sin(theta)`, so resting and landed pages are perfectly clean
-- rotating each vertex by its own angle preserves its distance to the spine exactly — no stretching, length-correct curl
+- rotating each vertex by its own angle preserves its distance to the spine exactly no stretching, length-correct curl
 
 Because it's analytic, the result is deterministic, render-farm safe, and every slider maps to one visible behavior.
 
 ## Roadmap
 
-- Simulation Zone hinge solver — true momentum with settle bounce on landing
+- Simulation Zone hinge solver true momentum with settle bounce on landing
 - Seamless riffle loop mode for turntable showcases
 - Square-block end state for animations that close the magazine completely
 - Per-page texture atlas / UDIM option as an alternative to per-sheet materials
