@@ -2,7 +2,7 @@
 
 **Procedural magazine generator with physics-flavored page-flip animation for Blender.**
 
-Build a fully procedural magazine in one click — or import a real PDF and watch it flip through its own pages with realistic follow-through, gravity droop, and paper flutter. Built entirely on Geometry Nodes: no baking, no simulation caches, fully art-directable, and scrubbable on the timeline in both directions.
+Build a fully procedural magazine in one click or import a real PDF and watch it flip through its own pages with realistic follow-through, gravity droop, and paper flutter. Built entirely on Geometry Nodes: no baking, no simulation caches, fully art-directable, and scrubbable on the timeline in both directions.
 
 ![Magazine Forge demo](docs/demo.gif)
 
@@ -25,7 +25,7 @@ Build a fully procedural magazine in one click — or import a real PDF and watc
 
 ## Requirements
 
-- Blender **4.2+** (developed and tested on 5.x socket-name fallbacks handle API renames across versions)
+- Blender **5.2+** (developed and tested on 5.x socket-name fallbacks handle API renames across versions)
 - PDF import: [`pypdfium2`](https://github.com/pypdfium2-team/pypdfium2) installable with one click from the addon panel (permissive license, no manual pip needed)
 
 ## Installation
